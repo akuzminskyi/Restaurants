@@ -28,5 +28,5 @@ struct Restaurant: Decodable {
 
     let name: String
     let status: OpeningsState
-    let sortringValues: SortingValues
+    let sortingValues: SortingValues
 }

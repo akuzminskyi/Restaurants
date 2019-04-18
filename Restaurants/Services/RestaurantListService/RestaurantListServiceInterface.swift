@@ -1,5 +1,5 @@
 //
-//  RestaurantsProviderServiceInterface.swift
+//  RestaurantListServiceInterface.swift
 //  Restaurants
 //
 //  Created by Andrii Kuzminskyi on 16/04/2019.
@@ -8,11 +8,11 @@
 
 import Foundation
 
-protocol RestaurantsProviderServiceInterface {
+protocol RestaurantListServiceInterface {
     func fetchRestaurantList(completion: ((Result<RestaurantList, Error>) -> Void))
 }
 
-extension RestaurantsProviderServiceInterface {
+extension RestaurantListServiceInterface {
     func fetchRestaurants(completion: ((Result<[Restaurant], Error>) -> Void)) {
         fetchRestaurantList { result in
             switch result {
