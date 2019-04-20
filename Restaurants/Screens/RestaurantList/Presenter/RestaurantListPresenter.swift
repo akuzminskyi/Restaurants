@@ -11,15 +11,18 @@ import Foundation
 final class RestaurantListPresenter {
     private weak var view: RestaurantListViewInterface?
     private let interactor: RestaurantListInteractorInterface
+    private let router: RestaurantListRouterInterface
     private let viewModelBuilder: RestaurantListViewModelBuilderInterface
 
     init(
         view: RestaurantListViewInterface,
         interactor: RestaurantListInteractorInterface,
+        router: RestaurantListRouterInterface,
         viewModelBuilder: RestaurantListViewModelBuilderInterface
     ) {
         self.view = view
         self.interactor = interactor
+        self.router = router
         self.viewModelBuilder = viewModelBuilder
     }
 }
@@ -30,7 +33,7 @@ extension RestaurantListPresenter: RestaurantListPresenterInterface {
     }
 
     func failureFetchedRestaurants(with error: Error) {
-        // handle it somehow, alert?
+        router.routeToErrorScreen(withMessage: error.localizedDescription)
     }
 
     func onViewDidLoad() {

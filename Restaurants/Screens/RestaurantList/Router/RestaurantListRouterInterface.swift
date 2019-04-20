@@ -8,4 +8,6 @@
 
 import Foundation
 
-protocol RestaurantListRouterInterface: RouterInterface { }
+protocol RestaurantListRouterInterface: RouterInterface {
+    func routeToErrorScreen(withMessage message: String)
+}

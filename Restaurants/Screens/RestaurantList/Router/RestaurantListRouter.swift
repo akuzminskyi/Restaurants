@@ -8,11 +8,19 @@
 
 import UIKit
 
-enum RestaurantListRouter: RestaurantListRouterInterface {
+final class RestaurantListRouter {
     private enum Constant {
         static let storyboardName = "RestaurantList"
     }
 
+    private weak var view: UIViewController?
+
+    init(view: UIViewController) {
+        self.view = view
+    }
+}
+
+extension RestaurantListRouter: RestaurantListRouterInterface {
     static func buildModule() -> UIViewController {
         let dataProvider = DataProviderService()
         let restaurantListService = RestaurantListService(dataProviderService: dataProvider)
@@ -20,11 +28,13 @@ enum RestaurantListRouter: RestaurantListRouterInterface {
 
         let storyboard = UIStoryboard(name: Constant.storyboardName, bundle: .main)
         let view: RestaurantListViewController = storyboard.instantiateViewController()
+        let router = RestaurantListRouter(view: view)
         let viewModelBuilder = RestaurantListViewModelBuilder()
-        
+
         let presenter = RestaurantListPresenter(
             view: view,
             interactor: interactor,
+            router: router,
             viewModelBuilder: viewModelBuilder
         )
 
@@ -32,5 +42,12 @@ enum RestaurantListRouter: RestaurantListRouterInterface {
         view.presenter = presenter
 
         return view
+    }
+
+    func routeToErrorScreen(withMessage message: String) {
+        let alertViewController = UIAlertController(title: nil, message: message, preferredStyle: .alert)
+        let action = UIAlertAction(title: "RestaurantList_Error_OK".localized(), style: .default) { _ in }
+        alertViewController.addAction(action)
+        view?.present(alertViewController, animated: true, completion: nil)
     }
 }

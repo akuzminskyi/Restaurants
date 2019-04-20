@@ -24,6 +24,7 @@ struct DataProviderService: DataProviderServiceInterface {
         guard let dataAsset = NSDataAsset(name: name) else {
             throw Error.notFound
         }
+
         return dataAsset.data
     }
 }
