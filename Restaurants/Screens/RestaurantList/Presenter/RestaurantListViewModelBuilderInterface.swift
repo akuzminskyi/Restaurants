@@ -1,5 +1,5 @@
 //
-//  RestaurantListInteractorInterface.swift
+//  RestaurantListViewModelBuilderInterface.swift
 //  Restaurants
 //
 //  Created by Andrii Kuzminskyi on 20/04/2019.
@@ -8,6 +8,5 @@
 
 import Foundation
 
-protocol RestaurantListInteractorInterface {
-    func fetchRestaurants()
+protocol RestaurantListViewModelBuilderInterface {
 }

@@ -9,9 +9,23 @@
 import Foundation
 
 final class RestaurantListInteractor {
+    private let restaurantListService: RestaurantListServiceInterface
     weak var presenter: RestaurantListPresenterInterface?
+
+    init(restaurantListService: RestaurantListServiceInterface) {
+        self.restaurantListService = restaurantListService
+    }
 }
 
 extension RestaurantListInteractor: RestaurantListInteractorInterface {
-
+    func fetchRestaurants() {
+        restaurantListService.fetchRestaurants { result in
+            switch result {
+            case let .success(restaurants):
+                presenter?.successfullyFetched(restaurants: restaurants)
+            case let .failure(error):
+                presenter?.failureFetchedRestaurants(with: error)
+            }
+        }
+    }
 }

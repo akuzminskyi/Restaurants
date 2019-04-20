@@ -9,4 +9,8 @@
 import Foundation
 
 protocol RestaurantListPresenterInterface: AnyObject {
+    func onViewDidLoad()
+
+    func successfullyFetched(restaurants: [Restaurant])
+    func failureFetchedRestaurants(with error: Error)
 }

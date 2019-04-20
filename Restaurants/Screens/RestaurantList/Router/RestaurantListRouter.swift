@@ -14,13 +14,18 @@ enum RestaurantListRouter: RestaurantListRouterInterface {
     }
 
     static func buildModule() -> UIViewController {
-        let interactor = RestaurantListInteractor()
+        let dataProvider = DataProviderService()
+        let restaurantListService = RestaurantListService(dataProviderService: dataProvider)
+        let interactor = RestaurantListInteractor(restaurantListService: restaurantListService)
 
         let storyboard = UIStoryboard(name: Constant.storyboardName, bundle: .main)
         let view: RestaurantListViewController = storyboard.instantiateViewController()
+        let viewModelBuilder = RestaurantListViewModelBuilder()
+        
         let presenter = RestaurantListPresenter(
             view: view,
-            interactor: interactor
+            interactor: interactor,
+            viewModelBuilder: viewModelBuilder
         )
 
         interactor.presenter = presenter

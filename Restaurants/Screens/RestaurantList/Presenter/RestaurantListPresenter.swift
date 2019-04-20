@@ -11,16 +11,29 @@ import Foundation
 final class RestaurantListPresenter {
     private weak var view: RestaurantListViewInterface?
     private let interactor: RestaurantListInteractorInterface
+    private let viewModelBuilder: RestaurantListViewModelBuilderInterface
 
     init(
         view: RestaurantListViewInterface,
-        interactor: RestaurantListInteractorInterface
+        interactor: RestaurantListInteractorInterface,
+        viewModelBuilder: RestaurantListViewModelBuilderInterface
     ) {
         self.view = view
         self.interactor = interactor
+        self.viewModelBuilder = viewModelBuilder
     }
 }
 
 extension RestaurantListPresenter: RestaurantListPresenterInterface {
+    func successfullyFetched(restaurants: [Restaurant]) {
 
+    }
+
+    func failureFetchedRestaurants(with error: Error) {
+        // handle it somehow, alert?
+    }
+
+    func onViewDidLoad() {
+        interactor.fetchRestaurants()
+    }
 }
