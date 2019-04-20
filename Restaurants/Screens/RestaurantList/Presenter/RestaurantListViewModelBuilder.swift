@@ -6,7 +6,7 @@
 //  Copyright © 2019 akuzminskyi. All rights reserved.
 //
 
-import Foundation
+import UIKit
 
 struct RestaurantListViewModelBuilder {
 }
@@ -16,8 +16,19 @@ extension RestaurantListViewModelBuilder: RestaurantListViewModelBuilderInterfac
         return restaurants.map { restaurant -> RestaurantViewModel in
             return RestaurantViewModel(
                 title: NSAttributedString(string: restaurant.name),
-                openingState: NSAttributedString(string: restaurant.status.localized),
-                sortValue: NSAttributedString(string: ""),
+                openingState: NSAttributedString(
+                    string: restaurant.status.localized,
+                    attributes: [
+                            .foregroundColor: UIColor.darkGray,
+                            .font: UIFont.systemFont(ofSize: UIFont.smallSystemFontSize)
+                    ]
+                ),
+                sortValue: NSAttributedString(
+                    string: "",
+                    attributes: [
+                            .foregroundColor: UIColor.darkGray,
+                            .font: UIFont.systemFont(ofSize: UIFont.smallSystemFontSize)
+                    ]),
                 favoriteMessage: "💔"
             )
         }
