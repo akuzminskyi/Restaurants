@@ -29,7 +29,8 @@ final class RestaurantListPresenter {
 
 extension RestaurantListPresenter: RestaurantListPresenterInterface {
     func successfullyFetched(restaurants: [Restaurant]) {
-
+        let viewModels = viewModelBuilder.viewModels(from: restaurants)
+        view?.show(viewModels: viewModels)
     }
 
     func failureFetchedRestaurants(with error: Error) {

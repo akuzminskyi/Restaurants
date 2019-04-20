@@ -9,9 +9,30 @@
 import Foundation
 
 struct RestaurantListViewModelBuilder {
-
 }
 
 extension RestaurantListViewModelBuilder: RestaurantListViewModelBuilderInterface {
+    func viewModels(from restaurants: [Restaurant]) -> [RestaurantViewModel] {
+        return restaurants.map { restaurant -> RestaurantViewModel in
+            return RestaurantViewModel(
+                title: NSAttributedString(string: restaurant.name),
+                openingState: NSAttributedString(string: restaurant.status.localized),
+                sortValue: NSAttributedString(string: ""),
+                favoriteMessage: "💔"
+            )
+        }
+    }
+}
 
+private extension Restaurant.OpeningsState {
+    var localized: String {
+        switch self {
+        case .closed:
+            return "OpeningsState_Closed".localized()
+        case .open:
+            return "OpeningsState_Open".localized()
+        case .orderAhead:
+            return "OpeningsState_OrderAhead".localized()
+        }
+    }
 }

@@ -19,7 +19,7 @@ struct RestaurantListService: RestaurantListServiceInterface {
 
     func fetchRestaurantList(completion: ((Result<RestaurantList, Error>) -> Void)) {
         do {
-            let data = try dataProviderService.data(fromAsset: "restaurwants.json")
+            let data = try dataProviderService.data(fromAsset: "restaurants.json")
             let list = try jsonDecoder.decode(RestaurantList.self, from: data)
             completion(.success(list))
         } catch let error {

@@ -1,2 +1,7 @@
 "DataProviderService_Error_NotFound" = "Data set is not found";
+
 "RestaurantList_Error_OK" = "OK";
+
+"OpeningsState_Closed" = "Closed";
+"OpeningsState_Open" = "Open";
+"OpeningsState_OrderAhead" = "Order ahead";
