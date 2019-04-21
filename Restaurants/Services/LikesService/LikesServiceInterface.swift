@@ -9,7 +9,7 @@
 import Foundation
 
 protocol LikesServiceInterface {
-    func like(restaurant: Restaurant)
-    func dislike(restaurant: Restaurant)
-    func isLiked(restaurant: Restaurant) -> Bool
+    func like(id: Identifier<Restaurant>)
+    func dislike(id: Identifier<Restaurant>)
+    func isLiked(id: Identifier<Restaurant>) -> Bool
 }

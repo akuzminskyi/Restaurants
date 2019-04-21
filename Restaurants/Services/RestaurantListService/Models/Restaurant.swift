@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct Restaurant: Decodable {
+struct Restaurant: Decodable, Identifiable {
     enum OpeningsState: String, Decodable {
         case open
         case orderAhead = "order ahead"
@@ -29,7 +29,7 @@ struct Restaurant: Decodable {
     let name: String
     let status: OpeningsState
     let sortingValues: SortingValues
-    let identifier: Identifier<String>
+    let id: Identifier<Restaurant>
 
     private enum CodingKeys: String, CodingKey {
         case name
@@ -42,6 +42,6 @@ struct Restaurant: Decodable {
         name = try container.decode(String.self, forKey: .name)
         status = try container.decode(OpeningsState.self, forKey: .status)
         sortingValues = try container.decode(SortingValues.self, forKey: .sortingValues)
-        identifier = Identifier(value: name)
+        id = Identifier<Restaurant>(rawValue: name)
     }
 }

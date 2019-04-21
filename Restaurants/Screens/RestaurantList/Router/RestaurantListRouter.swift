@@ -25,11 +25,12 @@ extension RestaurantListRouter: RestaurantListRouterInterface {
         let dataProvider = DataProviderService()
         let restaurantListService = RestaurantListService(dataProviderService: dataProvider)
         let interactor = RestaurantListInteractor(restaurantListService: restaurantListService)
+        let likesService = LikesService(storage: UserDefaults.likesSuite)
 
         let storyboard = UIStoryboard(name: Constant.storyboardName, bundle: .main)
         let view: RestaurantListViewController = storyboard.instantiateViewController()
         let router = RestaurantListRouter(view: view)
-        let viewModelBuilder = RestaurantListViewModelBuilder()
+        let viewModelBuilder = RestaurantListViewModelBuilder(likesService: likesService)
 
         let presenter = RestaurantListPresenter(
             view: view,
@@ -51,3 +52,8 @@ extension RestaurantListRouter: RestaurantListRouterInterface {
         view?.present(alertViewController, animated: true, completion: nil)
     }
 }
+
+private extension UserDefaults {
+    static let likesSuite = UserDefaults(suiteName: "Likes")!
+}
+

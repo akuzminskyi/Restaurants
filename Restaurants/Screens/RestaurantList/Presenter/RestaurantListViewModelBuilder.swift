@@ -9,7 +9,11 @@
 import UIKit
 
 struct RestaurantListViewModelBuilder {
-//    init(likesService)
+    private let likesService: LikesServiceInterface
+
+    init(likesService: LikesServiceInterface) {
+        self.likesService = likesService
+    }
 }
 
 extension RestaurantListViewModelBuilder: RestaurantListViewModelBuilderInterface {
@@ -30,8 +34,8 @@ extension RestaurantListViewModelBuilder: RestaurantListViewModelBuilderInterfac
                             .foregroundColor: UIColor.darkGray,
                             .font: UIFont.systemFont(ofSize: UIFont.smallSystemFontSize)
                     ]),
-                favoriteTitle: "💔",
-                identifier: restaurant.identifier
+                favoriteTitle: likesService.isLiked(id: restaurant.id) ? "❤️" : "💔",
+                id: restaurant.id
             )
         }
     }

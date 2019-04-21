@@ -8,10 +8,16 @@
 
 import Foundation
 
-struct Identifier<T: Equatable>: Equatable {
-    let value: T
+protocol Identifiable {
+    associatedtype RawIdentifier: Codable & Equatable = String
 
-    init(value: T) {
-        self.value = value
+    var id: Identifier<Self> { get }
+}
+
+struct Identifier<Value: Identifiable>: Equatable {
+    let rawValue: Value.RawIdentifier
+
+    init(rawValue: Value.RawIdentifier) {
+        self.rawValue = rawValue
     }
 }

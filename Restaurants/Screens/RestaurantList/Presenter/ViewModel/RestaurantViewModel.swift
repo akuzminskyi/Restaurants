@@ -13,11 +13,11 @@ struct RestaurantViewModel {
     let openingState: NSAttributedString
     let sortValue: NSAttributedString
     let favoriteTitle: String
-    let identifier: Identifier<String>
+    let id: Identifier<Restaurant>
 }
 
 extension RestaurantViewModel {
     static func == (lhs: RestaurantViewModel, rhs: Restaurant) -> Bool {
-        return lhs.identifier == rhs.identifier
+        return lhs.id == rhs.id
     }
 }
