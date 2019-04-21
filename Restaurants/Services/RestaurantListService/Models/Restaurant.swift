@@ -9,7 +9,7 @@
 import Foundation
 
 struct Restaurant: Decodable, Identifiable {
-    enum OpeningsState: String, Decodable {
+    enum OpeningsState: String, Decodable, CaseIterable {
         case open
         case orderAhead = "order ahead"
         case closed

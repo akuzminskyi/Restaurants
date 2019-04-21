@@ -21,7 +21,8 @@ struct RestaurantListViewModelBuilder {
         guard !restaurants.isEmpty else {
             return nil
         }
-        let viewModels = restaurants.map { restaurant -> RestaurantViewModel in
+
+        let viewModels = restaurants.sorted().map { restaurant -> RestaurantViewModel in
             return RestaurantViewModel(
                 title: NSAttributedString(string: restaurant.name),
                 openingState: NSAttributedString(
@@ -42,6 +43,18 @@ struct RestaurantListViewModelBuilder {
             )
         }
         return RestaurantListSection(title: title, viewModels: viewModels)
+    }
+}
+
+private extension Array where Element == Restaurant {
+    func sorted() -> [Element] {
+        let indexableStatuses = Restaurant.OpeningsState.indexableAllCases
+        return sorted { (r1, r2) -> Bool in
+            guard let leftIndex = indexableStatuses[r1.status], let rightIndex = indexableStatuses[r2.status] else {
+                fatalError("This never happens")
+            }
+            return leftIndex < rightIndex
+        }
     }
 }
 

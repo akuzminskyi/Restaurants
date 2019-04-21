@@ -29,6 +29,7 @@
 		B7D6568D226CF2190006DBB6 /* Storable.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7D6568C226CF2190006DBB6 /* Storable.swift */; };
 		B7D6568F226D07C70006DBB6 /* RestaurantListSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7D6568E226D07C70006DBB6 /* RestaurantListSection.swift */; };
 		B7D65692226D08230006DBB6 /* Array+split.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7D65691226D08230006DBB6 /* Array+split.swift */; };
+		B7D65694226D114F0006DBB6 /* CaseIterable+Index.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7D65693226D114F0006DBB6 /* CaseIterable+Index.swift */; };
 		B7D76DE822665FB600FE9201 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7D76DE722665FB600FE9201 /* AppDelegate.swift */; };
 		B7D76DEF22665FB800FE9201 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B7D76DEE22665FB800FE9201 /* Assets.xcassets */; };
 		B7D76DF222665FB800FE9201 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B7D76DF022665FB800FE9201 /* LaunchScreen.storyboard */; };
@@ -76,6 +77,7 @@
 		B7D6568C226CF2190006DBB6 /* Storable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Storable.swift; sourceTree = "<group>"; };
 		B7D6568E226D07C70006DBB6 /* RestaurantListSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestaurantListSection.swift; sourceTree = "<group>"; };
 		B7D65691226D08230006DBB6 /* Array+split.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array+split.swift"; sourceTree = "<group>"; };
+		B7D65693226D114F0006DBB6 /* CaseIterable+Index.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CaseIterable+Index.swift"; sourceTree = "<group>"; };
 		B7D76DE422665FB600FE9201 /* Restaurants.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Restaurants.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B7D76DE722665FB600FE9201 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B7D76DEE22665FB800FE9201 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -227,6 +229,7 @@
 			children = (
 				B7DD2C7F22690D6A0097C075 /* String+Localizable.swift */,
 				B7D65691226D08230006DBB6 /* Array+split.swift */,
+				B7D65693226D114F0006DBB6 /* CaseIterable+Index.swift */,
 			);
 			path = Foundation;
 			sourceTree = "<group>";
@@ -442,6 +445,7 @@
 				B7DD2C782268FFB00097C075 /* RestaurantListService.swift in Sources */,
 				B7DD2C7A226903200097C075 /* DataProviderService.swift in Sources */,
 				B7D6567C226BA97E0006DBB6 /* RestaurantCell.swift in Sources */,
+				B7D65694226D114F0006DBB6 /* CaseIterable+Index.swift in Sources */,
 				B7D65678226B954A0006DBB6 /* RestaurantListViewModelBuilder.swift in Sources */,
 				B7D65681226BB04C0006DBB6 /* UITableView+Generic.swift in Sources */,
 				B7D65673226B8F1E0006DBB6 /* RestaurantListViewInterface.swift in Sources */,
