@@ -24,6 +24,9 @@
 		B7D6567F226BABBF0006DBB6 /* RestaurantViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7D6567E226BABBF0006DBB6 /* RestaurantViewModel.swift */; };
 		B7D65681226BB04C0006DBB6 /* UITableView+Generic.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7D65680226BB04C0006DBB6 /* UITableView+Generic.swift */; };
 		B7D65685226CE5D90006DBB6 /* Identifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7D65684226CE5D90006DBB6 /* Identifier.swift */; };
+		B7D65688226CEC1A0006DBB6 /* LikesService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7D65687226CEC1A0006DBB6 /* LikesService.swift */; };
+		B7D6568A226CEC230006DBB6 /* LikesServiceInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7D65689226CEC230006DBB6 /* LikesServiceInterface.swift */; };
+		B7D6568D226CF2190006DBB6 /* Storable.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7D6568C226CF2190006DBB6 /* Storable.swift */; };
 		B7D76DE822665FB600FE9201 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7D76DE722665FB600FE9201 /* AppDelegate.swift */; };
 		B7D76DEF22665FB800FE9201 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B7D76DEE22665FB800FE9201 /* Assets.xcassets */; };
 		B7D76DF222665FB800FE9201 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B7D76DF022665FB800FE9201 /* LaunchScreen.storyboard */; };
@@ -66,6 +69,9 @@
 		B7D6567E226BABBF0006DBB6 /* RestaurantViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestaurantViewModel.swift; sourceTree = "<group>"; };
 		B7D65680226BB04C0006DBB6 /* UITableView+Generic.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableView+Generic.swift"; sourceTree = "<group>"; };
 		B7D65684226CE5D90006DBB6 /* Identifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Identifier.swift; sourceTree = "<group>"; };
+		B7D65687226CEC1A0006DBB6 /* LikesService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LikesService.swift; sourceTree = "<group>"; };
+		B7D65689226CEC230006DBB6 /* LikesServiceInterface.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LikesServiceInterface.swift; sourceTree = "<group>"; };
+		B7D6568C226CF2190006DBB6 /* Storable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Storable.swift; sourceTree = "<group>"; };
 		B7D76DE422665FB600FE9201 /* Restaurants.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Restaurants.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B7D76DE722665FB600FE9201 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B7D76DEE22665FB800FE9201 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -194,6 +200,23 @@
 			path = ViewModel;
 			sourceTree = "<group>";
 		};
+		B7D65686226CEC0F0006DBB6 /* LikesService */ = {
+			isa = PBXGroup;
+			children = (
+				B7D65687226CEC1A0006DBB6 /* LikesService.swift */,
+				B7D65689226CEC230006DBB6 /* LikesServiceInterface.swift */,
+			);
+			path = LikesService;
+			sourceTree = "<group>";
+		};
+		B7D6568B226CF20B0006DBB6 /* Storable */ = {
+			isa = PBXGroup;
+			children = (
+				B7D6568C226CF2190006DBB6 /* Storable.swift */,
+			);
+			path = Storable;
+			sourceTree = "<group>";
+		};
 		B7D76DDB22665FB600FE9201 = {
 			isa = PBXGroup;
 			children = (
@@ -239,6 +262,8 @@
 		B7D76E072266614F00FE9201 /* Services */ = {
 			isa = PBXGroup;
 			children = (
+				B7D6568B226CF20B0006DBB6 /* Storable */,
+				B7D65686226CEC0F0006DBB6 /* LikesService */,
 				B7D65674226B91110006DBB6 /* AppLaunchRouter */,
 				B7DD2C742268FE810097C075 /* NetworkProviderService */,
 				B7D76E082266615900FE9201 /* RestaurantListService */,
@@ -413,11 +438,14 @@
 				B7D6566B226B8CB30006DBB6 /* RestaurantListInteractor.swift in Sources */,
 				B7DD2C762268FEA80097C075 /* DataProviderServiceInterface.swift in Sources */,
 				B7D65663226B8BD30006DBB6 /* RestaurantListPresenter.swift in Sources */,
+				B7D6568D226CF2190006DBB6 /* Storable.swift in Sources */,
 				B7D65656226B89D40006DBB6 /* RouterInterface.swift in Sources */,
+				B7D65688226CEC1A0006DBB6 /* LikesService.swift in Sources */,
 				B7D6566D226B8D450006DBB6 /* RestaurantListPresenterInterface.swift in Sources */,
 				B7D6567A226B95620006DBB6 /* RestaurantListViewModelBuilderInterface.swift in Sources */,
 				B7D65685226CE5D90006DBB6 /* Identifier.swift in Sources */,
 				B7D65669226B8CA40006DBB6 /* RestaurantListInteractorInterface.swift in Sources */,
+				B7D6568A226CEC230006DBB6 /* LikesServiceInterface.swift in Sources */,
 				B7D76DE822665FB600FE9201 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

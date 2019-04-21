@@ -9,7 +9,7 @@
 import Foundation
 
 struct Identifier<T: Equatable>: Equatable {
-    private let value: T
+    let value: T
 
     init(value: T) {
         self.value = value

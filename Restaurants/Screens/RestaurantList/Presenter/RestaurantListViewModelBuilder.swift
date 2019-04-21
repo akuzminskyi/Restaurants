@@ -9,6 +9,7 @@
 import UIKit
 
 struct RestaurantListViewModelBuilder {
+//    init(likesService)
 }
 
 extension RestaurantListViewModelBuilder: RestaurantListViewModelBuilderInterface {
