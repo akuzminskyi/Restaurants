@@ -14,11 +14,14 @@ struct RestaurantListViewModelBuilder {
     init(likesService: LikesServiceInterface) {
         self.likesService = likesService
     }
-}
 
-extension RestaurantListViewModelBuilder: RestaurantListViewModelBuilderInterface {
-    func viewModels(from restaurants: [Restaurant]) -> [RestaurantViewModel] {
-        return restaurants.map { restaurant -> RestaurantViewModel in
+    // MARK: - private methods
+
+    private func sectionViewModel(from restaurants: [Restaurant], asLiked isLiked: Bool, withTitle title: String) -> RestaurantListSection? {
+        guard !restaurants.isEmpty else {
+            return nil
+        }
+        let viewModels = restaurants.map { restaurant -> RestaurantViewModel in
             return RestaurantViewModel(
                 title: NSAttributedString(string: restaurant.name),
                 openingState: NSAttributedString(
@@ -34,10 +37,30 @@ extension RestaurantListViewModelBuilder: RestaurantListViewModelBuilderInterfac
                             .foregroundColor: UIColor.darkGray,
                             .font: UIFont.systemFont(ofSize: UIFont.smallSystemFontSize)
                     ]),
-                favoriteTitle: likesService.isLiked(id: restaurant.id) ? "❤️" : "💔",
+                favoriteTitle: isLiked ? "❤️" : "💔",
                 id: restaurant.id
             )
         }
+        return RestaurantListSection(title: title, viewModels: viewModels)
+    }
+}
+
+extension RestaurantListViewModelBuilder: RestaurantListViewModelBuilderInterface {
+    func viewModels(from restaurants: [Restaurant]) -> [RestaurantListSection] {
+        let (likedRestaurants, dislikeRestaurants) = restaurants.split { restaurant -> Bool in
+            return likesService.isLiked(id: restaurant.id)
+        }
+        return [
+            sectionViewModel(
+                from: likedRestaurants,
+                asLiked: true,
+                withTitle: "RestaurantList_Section_Liked".localized()),
+            sectionViewModel(
+                from: dislikeRestaurants,
+                asLiked: false,
+                withTitle: "RestaurantList_Section_AllRestaurants".localized()
+            )
+        ].compactMap { $0 }
     }
 }
 

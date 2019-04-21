@@ -30,12 +30,8 @@ final class RestaurantListPresenter {
     // MARK: - private methods
 
     private func present(restaurants: [Restaurant]?) {
-        if let restaurants = restaurants {
-            let viewModels = viewModelBuilder.viewModels(from: restaurants)
-            view?.show(viewModels: viewModels)
-        } else {
-            view?.show(viewModels: [])
-        }
+        let sections = viewModelBuilder.viewModels(from: restaurants ?? [])
+        view?.show(sections: sections)
     }
 }
 

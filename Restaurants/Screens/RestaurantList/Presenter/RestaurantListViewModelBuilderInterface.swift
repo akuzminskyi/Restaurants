@@ -9,5 +9,5 @@
 import Foundation
 
 protocol RestaurantListViewModelBuilderInterface {
-    func viewModels(from restaurants: [Restaurant]) -> [RestaurantViewModel]
+    func viewModels(from restaurants: [Restaurant]) -> [RestaurantListSection]
 }

@@ -9,5 +9,5 @@
 import Foundation
 
 protocol RestaurantListViewInterface: AnyObject {
-    func show(viewModels: [RestaurantViewModel])
+    func show(sections: [RestaurantListSection])
 }
