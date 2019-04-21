@@ -13,6 +13,7 @@ final class RestaurantListPresenter {
     private let interactor: RestaurantListInteractorInterface
     private let router: RestaurantListRouterInterface
     private let viewModelBuilder: RestaurantListViewModelBuilderInterface
+    private var receivedRestaurants: [Restaurant]?
 
     init(
         view: RestaurantListViewInterface,
@@ -25,15 +26,31 @@ final class RestaurantListPresenter {
         self.router = router
         self.viewModelBuilder = viewModelBuilder
     }
+
+    // MARK: - private methods
+
+    private func present(restaurants: [Restaurant]?) {
+        if let restaurants = restaurants {
+            let viewModels = viewModelBuilder.viewModels(from: restaurants)
+            view?.show(viewModels: viewModels)
+        } else {
+            view?.show(viewModels: [])
+        }
+    }
 }
 
 extension RestaurantListPresenter: RestaurantListPresenterInterface {
+    func didTap(at viewModel: RestaurantViewModel) {
+    }
+
     func successfullyFetched(restaurants: [Restaurant]) {
-        let viewModels = viewModelBuilder.viewModels(from: restaurants)
-        view?.show(viewModels: viewModels)
+        receivedRestaurants = restaurants
+        present(restaurants: receivedRestaurants)
     }
 
     func failureFetchedRestaurants(with error: Error) {
+        receivedRestaurants = nil
+        present(restaurants: receivedRestaurants)
         router.routeToErrorScreen(withMessage: error.localizedDescription)
     }
 

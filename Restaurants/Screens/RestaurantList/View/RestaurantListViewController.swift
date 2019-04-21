@@ -34,7 +34,11 @@ extension RestaurantListViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell: RestaurantCell = tableView.dequeueReusableCell(for: indexPath)
         cell.setupViewModel(viewModels[indexPath.row])
-        cell.favouriteButtonAction = {
+        cell.favouriteButtonAction = { [weak self] in
+            guard let self = self else {
+                return
+            }
+            self.presenter?.didTap(at: self.viewModels[indexPath.row])
         }
         return cell
     }
@@ -45,6 +49,6 @@ private extension RestaurantCell {
         restaurantTitleLabel.attributedText = viewModel.title
         openingStateLabel.attributedText = viewModel.openingState
         sortValueLabel.attributedText = viewModel.sortValue
-        favouriteButtonTitle = viewModel.favoriteMessage
+        favouriteButtonTitle = viewModel.favoriteTitle
     }
 }

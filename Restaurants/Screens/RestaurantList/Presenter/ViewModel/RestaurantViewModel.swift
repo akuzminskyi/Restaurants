@@ -12,5 +12,12 @@ struct RestaurantViewModel {
     let title: NSAttributedString
     let openingState: NSAttributedString
     let sortValue: NSAttributedString
-    let favoriteMessage: String
+    let favoriteTitle: String
+    let identifier: Identifier<String>
+}
+
+extension RestaurantViewModel {
+    static func == (lhs: RestaurantViewModel, rhs: Restaurant) -> Bool {
+        return lhs.identifier == rhs.identifier
+    }
 }

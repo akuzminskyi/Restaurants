@@ -11,6 +11,8 @@ import Foundation
 protocol RestaurantListPresenterInterface: AnyObject {
     func onViewDidLoad()
 
+    func didTap(at viewModel: RestaurantViewModel)
+
     func successfullyFetched(restaurants: [Restaurant])
     func failureFetchedRestaurants(with error: Error)
 }

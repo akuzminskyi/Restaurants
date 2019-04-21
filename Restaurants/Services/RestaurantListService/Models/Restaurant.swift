@@ -29,4 +29,19 @@ struct Restaurant: Decodable {
     let name: String
     let status: OpeningsState
     let sortingValues: SortingValues
+    let identifier: Identifier<String>
+
+    private enum CodingKeys: String, CodingKey {
+        case name
+        case status
+        case sortingValues
+    }
+
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        name = try container.decode(String.self, forKey: .name)
+        status = try container.decode(OpeningsState.self, forKey: .status)
+        sortingValues = try container.decode(SortingValues.self, forKey: .sortingValues)
+        identifier = Identifier(value: name)
+    }
 }

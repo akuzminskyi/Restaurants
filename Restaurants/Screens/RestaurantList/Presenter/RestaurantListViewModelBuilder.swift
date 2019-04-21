@@ -29,7 +29,8 @@ extension RestaurantListViewModelBuilder: RestaurantListViewModelBuilderInterfac
                             .foregroundColor: UIColor.darkGray,
                             .font: UIFont.systemFont(ofSize: UIFont.smallSystemFontSize)
                     ]),
-                favoriteMessage: "💔"
+                favoriteTitle: "💔",
+                identifier: restaurant.identifier
             )
         }
     }
