@@ -22,7 +22,7 @@ struct RestaurantListViewModelBuilder {
             return nil
         }
 
-        let viewModels = restaurants.sorted().map { restaurant -> RestaurantViewModel in
+        let viewModels = restaurants.map { restaurant -> RestaurantViewModel in
             return RestaurantViewModel(
                 title: NSAttributedString(string: restaurant.name),
                 openingState: NSAttributedString(
@@ -46,21 +46,9 @@ struct RestaurantListViewModelBuilder {
     }
 }
 
-private extension Array where Element == Restaurant {
-    func sorted() -> [Element] {
-        let indexableStatuses = Restaurant.OpeningsState.indexableAllCases
-        return sorted { (r1, r2) -> Bool in
-            guard let leftIndex = indexableStatuses[r1.status], let rightIndex = indexableStatuses[r2.status] else {
-                fatalError("This never happens")
-            }
-            return leftIndex < rightIndex
-        }
-    }
-}
-
 extension RestaurantListViewModelBuilder: RestaurantListViewModelBuilderInterface {
     func viewModels(from restaurants: [Restaurant]) -> [RestaurantListSection] {
-        let (likedRestaurants, dislikeRestaurants) = restaurants.split { restaurant -> Bool in
+        let (likedRestaurants, dislikeRestaurants) = restaurants.sorted().split { restaurant -> Bool in
             return likesService.isLiked(id: restaurant.id)
         }
         return [
@@ -74,6 +62,21 @@ extension RestaurantListViewModelBuilder: RestaurantListViewModelBuilderInterfac
                 withTitle: "RestaurantList_Section_AllRestaurants".localized()
             )
         ].compactMap { $0 }
+    }
+}
+
+private extension Array where Element == Restaurant {
+    func sorted() -> [Element] {
+        let indexableStatuses = Restaurant.OpeningsState.indexableAllCases
+        return sorted { (lhs, rhs) -> Bool in
+            guard let leftIndex = indexableStatuses[lhs.status], let rightIndex = indexableStatuses[rhs.status] else {
+                fatalError("This never happens")
+            }
+            guard leftIndex == rightIndex else {
+                return leftIndex < rightIndex
+            }
+            return lhs.name.caseInsensitiveCompare(rhs.name) == .orderedAscending
+        }
     }
 }
 
