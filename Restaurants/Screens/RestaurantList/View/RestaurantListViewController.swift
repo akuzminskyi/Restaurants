@@ -43,6 +43,7 @@ extension RestaurantListViewController: RestaurantListViewInterface {
 
     func showSections(_ sections: [RestaurantListSection]) {
         self.sections = sections
+        // TODO: - add `difference` at Swift 5.1 - https://github.com/apple/swift-evolution/blob/master/proposals/0240-ordered-collection-diffing.md
         tableView.reloadData()
     }
 }
