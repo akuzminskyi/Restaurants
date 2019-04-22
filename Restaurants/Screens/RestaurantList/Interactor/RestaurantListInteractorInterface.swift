@@ -9,5 +9,6 @@
 import Foundation
 
 protocol RestaurantListInteractorInterface {
+    func toggleLike(for id: Identifier<Restaurant>)
     func fetchRestaurants()
 }

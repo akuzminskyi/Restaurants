@@ -17,15 +17,15 @@ final class LikesService {
 }
 
 extension LikesService: LikesServiceInterface {
-    func like(id: Identifier<Restaurant>) {
+    func like(_ id: Identifier<Restaurant>) {
         likesStorage.set(true, forKey: id.rawValue)
     }
 
-    func dislike(id: Identifier<Restaurant>) {
+    func dislike(_ id: Identifier<Restaurant>) {
         likesStorage.removeObject(forKey: id.rawValue)
     }
 
-    func isLiked(id: Identifier<Restaurant>) -> Bool {
+    func isLiked(_ id: Identifier<Restaurant>) -> Bool {
         return likesStorage.bool(forKey: id.rawValue)
     }
 }

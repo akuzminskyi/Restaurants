@@ -8,8 +8,11 @@
 
 import Foundation
 
-protocol LikesServiceInterface {
-    func like(id: Identifier<Restaurant>)
-    func dislike(id: Identifier<Restaurant>)
-    func isLiked(id: Identifier<Restaurant>) -> Bool
+protocol LikesServiceReadOnlyInterface {
+    func isLiked(_ id: Identifier<Restaurant>) -> Bool
+}
+
+protocol LikesServiceInterface: LikesServiceReadOnlyInterface {
+    func like(_ id: Identifier<Restaurant>)
+    func dislike(_ id: Identifier<Restaurant>)
 }

@@ -24,8 +24,11 @@ extension RestaurantListRouter: RestaurantListRouterInterface {
     static func buildModule() -> UIViewController {
         let dataProvider = DataProviderService()
         let restaurantListService = RestaurantListService(dataProviderService: dataProvider)
-        let interactor = RestaurantListInteractor(restaurantListService: restaurantListService)
         let likesService = LikesService(storage: UserDefaults.likesSuite)
+        let interactor = RestaurantListInteractor(
+            restaurantListService: restaurantListService,
+            likesService: likesService
+        )
 
         let storyboard = UIStoryboard(name: Constant.storyboardName, bundle: .main)
         let view: RestaurantListViewController = storyboard.instantiateViewController()

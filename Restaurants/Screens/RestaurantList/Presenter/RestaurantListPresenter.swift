@@ -37,6 +37,8 @@ final class RestaurantListPresenter {
 
 extension RestaurantListPresenter: RestaurantListPresenterInterface {
     func didTap(at viewModel: RestaurantViewModel) {
+        interactor.toggleLike(for: viewModel.id)
+        present(restaurants: receivedRestaurants)
     }
 
     func successfullyFetched(restaurants: [Restaurant]) {

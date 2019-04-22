@@ -9,9 +9,9 @@
 import UIKit
 
 struct RestaurantListViewModelBuilder {
-    private let likesService: LikesServiceInterface
+    private let likesService: LikesServiceReadOnlyInterface
 
-    init(likesService: LikesServiceInterface) {
+    init(likesService: LikesServiceReadOnlyInterface) {
         self.likesService = likesService
     }
 
@@ -49,7 +49,7 @@ struct RestaurantListViewModelBuilder {
 extension RestaurantListViewModelBuilder: RestaurantListViewModelBuilderInterface {
     func viewModels(from restaurants: [Restaurant]) -> [RestaurantListSection] {
         let (likedRestaurants, dislikeRestaurants) = restaurants.sorted().split { restaurant -> Bool in
-            return likesService.isLiked(id: restaurant.id)
+            return likesService.isLiked(restaurant.id)
         }
         return [
             sectionViewModel(

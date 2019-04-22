@@ -10,14 +10,24 @@ import Foundation
 
 final class RestaurantListInteractor {
     private let restaurantListService: RestaurantListServiceInterface
+    private let likesService: LikesServiceInterface
     weak var presenter: RestaurantListPresenterInterface?
 
-    init(restaurantListService: RestaurantListServiceInterface) {
+    init(restaurantListService: RestaurantListServiceInterface, likesService: LikesServiceInterface) {
         self.restaurantListService = restaurantListService
+        self.likesService = likesService
     }
 }
 
 extension RestaurantListInteractor: RestaurantListInteractorInterface {
+    func toggleLike(for id: Identifier<Restaurant>) {
+        if likesService.isLiked(id) {
+            likesService.dislike(id)
+        } else {
+            likesService.like(id)
+        }
+    }
+
     func fetchRestaurants() {
         restaurantListService.fetchRestaurants { result in
             switch result {
