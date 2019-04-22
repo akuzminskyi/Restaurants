@@ -12,7 +12,8 @@ protocol RestaurantListPresenterInterface: AnyObject {
     func onViewDidLoad()
 
     func didTap(at viewModel: RestaurantViewModel)
-    func searchTermDidChange(_ text: String) 
+    func didTap(at sortingValue: SortingValue)
+    func searchTermDidChange(_ text: String)
 
     func successfullyFetched(restaurants: [Restaurant])
     func failureFetchedRestaurants(with error: Error)

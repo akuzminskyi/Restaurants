@@ -21,7 +21,8 @@ struct RestaurantListViewModelBuilder {
         from restaurants: [Restaurant],
         asLiked isLiked: Bool,
         withTitle title: String,
-        highlightedText: String?
+        highlightedText: String?,
+        sortingValue: SortingValue
     ) -> RestaurantListSection? {
         guard !restaurants.isEmpty else {
             return nil
@@ -43,12 +44,7 @@ struct RestaurantListViewModelBuilder {
                             .font: UIFont.systemFont(ofSize: UIFont.smallSystemFontSize)
                     ]
                 ),
-                sortValue: NSAttributedString(
-                    string: "",
-                    attributes: [
-                            .foregroundColor: UIColor.darkGray,
-                            .font: UIFont.systemFont(ofSize: UIFont.smallSystemFontSize)
-                    ]),
+                sortingValue: sortingValueAttributedString(for: restaurant, sortingValue: sortingValue),
                 favoriteTitle: isLiked ? "❤️" : "💔",
                 id: restaurant.id
             )
@@ -72,12 +68,27 @@ struct RestaurantListViewModelBuilder {
         }
         return attributedString
     }
+
+    private func sortingValueAttributedString(
+        for restaurant: Restaurant,
+        sortingValue: SortingValue
+    ) -> NSAttributedString {
+        return NSAttributedString(
+            string: "\(sortingValue): \(restaurant.sortingValues[sortingValue])",
+            attributes: [
+                    .foregroundColor: UIColor.darkGray,
+                    .font: UIFont.systemFont(ofSize: UIFont.smallSystemFontSize)
+            ])
+    }
 }
 
 extension RestaurantListViewModelBuilder: RestaurantListViewModelBuilderInterface {
-    func viewModels(from restaurants: [Restaurant], filteredByName searchTerm: String?) -> [RestaurantListSection] {
+    func viewModels(
+        from restaurants: [Restaurant],
+        sortedBy sortingValue: SortingValue,
+        filteredByName searchTerm: String?
+    ) -> [RestaurantListSection] {
         let filteredRestaurants: [Restaurant]
-
         if let searchTerm = searchTerm, !searchTerm.isEmpty {
             filteredRestaurants = restaurants.filter { restaurant -> Bool in
                 return restaurant.name.localizedCaseInsensitiveContains(searchTerm)
@@ -87,7 +98,7 @@ extension RestaurantListViewModelBuilder: RestaurantListViewModelBuilderInterfac
         }
 
         let (likedRestaurants, dislikeRestaurants) = filteredRestaurants
-            .sorted()
+            .sorted(by: sortingValue)
             .split { restaurant -> Bool in
                 return likesService.isLiked(restaurant.id)
         }
@@ -97,30 +108,17 @@ extension RestaurantListViewModelBuilder: RestaurantListViewModelBuilderInterfac
                 from: likedRestaurants,
                 asLiked: true,
                 withTitle: "RestaurantList_Section_Liked".localized(),
-                highlightedText: searchTerm
+                highlightedText: searchTerm,
+                sortingValue: sortingValue
             ),
             sectionViewModel(
                 from: dislikeRestaurants,
                 asLiked: false,
                 withTitle: "RestaurantList_Section_AllRestaurants".localized(),
-                highlightedText: searchTerm
+                highlightedText: searchTerm,
+                sortingValue: sortingValue
             )
         ].compactMap { $0 }
-    }
-}
-
-private extension Array where Element == Restaurant {
-    func sorted() -> [Element] {
-        let indexableStatuses = Restaurant.OpeningsState.indexableAllCases
-        return sorted { (lhs, rhs) -> Bool in
-            guard let leftIndex = indexableStatuses[lhs.status], let rightIndex = indexableStatuses[rhs.status] else {
-                fatalError("This never happens")
-            }
-            guard leftIndex == rightIndex else {
-                return leftIndex < rightIndex
-            }
-            return lhs.name.caseInsensitiveCompare(rhs.name) == .orderedAscending
-        }
     }
 }
 

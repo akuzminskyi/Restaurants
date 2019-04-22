@@ -9,12 +9,17 @@
 import Foundation
 
 final class RestaurantListPresenter {
+    private struct InputAttibutes {
+        var searchTerm: String?
+        var restaurants: [Restaurant]?
+        var sortingValue: SortingValue = .bestMatch
+    }
+
     private weak var view: RestaurantListViewInterface?
     private let interactor: RestaurantListInteractorInterface
     private let router: RestaurantListRouterInterface
     private let viewModelBuilder: RestaurantListViewModelBuilderInterface
-    private var receivedRestaurants: [Restaurant]?
-    private var searchTerm: String?
+    private var attributes = InputAttibutes()
 
     init(
         view: RestaurantListViewInterface,
@@ -30,19 +35,35 @@ final class RestaurantListPresenter {
 
     // MARK: - private methods
 
-    private func presentRestaurants(_ restaurants: [Restaurant], filteredByName filteredName: String?) {
-        let sections = viewModelBuilder.viewModels(from: restaurants, filteredByName: filteredName)
-        view?.show(sections: sections)
+    private func presentRestaurants(with attributes: InputAttibutes) {
+        let sections = viewModelBuilder.viewModels(
+            from: attributes.restaurants ?? [],
+            sortedBy: attributes.sortingValue,
+            filteredByName: attributes.searchTerm
+        )
+        view?.showSections(sections)
     }
 
     private func presentActualRestaurantList() {
-        presentRestaurants(receivedRestaurants ?? [], filteredByName: searchTerm)
+        presentRestaurants(with: attributes)
+    }
+
+    private func setupSortingValues() {
+        let sortingValues = SortingValue.allCases
+        let selectedIndex = sortingValues.firstIndex(of: attributes.sortingValue) ?? 0
+        view?.showSortingValues(sortingValues, withSelectedIndex: selectedIndex)
     }
 }
 
 extension RestaurantListPresenter: RestaurantListPresenterInterface {
     func onViewDidLoad() {
+        setupSortingValues()
         interactor.fetchRestaurants()
+    }
+
+    func didTap(at sortingValue: SortingValue) {
+        attributes.sortingValue = sortingValue
+        presentActualRestaurantList()
     }
 
     func didTap(at viewModel: RestaurantViewModel) {
@@ -51,17 +72,17 @@ extension RestaurantListPresenter: RestaurantListPresenterInterface {
     }
 
     func searchTermDidChange(_ text: String) {
-        searchTerm = text
+        attributes.searchTerm = text
         presentActualRestaurantList()
     }
 
     func successfullyFetched(restaurants: [Restaurant]) {
-        receivedRestaurants = restaurants
+        attributes.restaurants = restaurants
         presentActualRestaurantList()
     }
 
     func failureFetchedRestaurants(with error: Error) {
-        receivedRestaurants = nil
+        attributes.restaurants = nil
         presentActualRestaurantList()
         router.routeToErrorScreen(withMessage: error.localizedDescription)
     }

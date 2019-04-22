@@ -12,15 +12,36 @@ final class RestaurantListViewController: UIViewController {
     @IBOutlet private weak var tableView: UITableView!
     var presenter: RestaurantListPresenterInterface?
     private var sections = [RestaurantListSection]()
+    private var sortingValues = [SortingValue]()
+
+    @IBOutlet private weak var segmentControl: UISegmentedControl!
+
+    // MARK: - life cycle methods
 
     override func viewDidLoad() {
         super.viewDidLoad()
         presenter?.onViewDidLoad()
     }
+
+    // MARK: - IBAction methods
+
+    @IBAction private func segmentControlValuedChanged(_ sender: UISegmentedControl) {
+        presenter?.didTap(at: sortingValues[sender.selectedSegmentIndex])
+    }
 }
 
 extension RestaurantListViewController: RestaurantListViewInterface {
-    func show(sections: [RestaurantListSection]) {
+    func showSortingValues(_ sortingValues: [SortingValue], withSelectedIndex index: Int) {
+        segmentControl.removeAllSegments()
+        sortingValues.enumerated().forEach { (arg) in
+            let (index, value) = arg
+            segmentControl.insertSegment(withTitle: value.localizedText, at: index, animated: false)
+        }
+        self.sortingValues = sortingValues
+        segmentControl.selectedSegmentIndex = index
+    }
+
+    func showSections(_ sections: [RestaurantListSection]) {
         self.sections = sections
         tableView.reloadData()
     }
@@ -63,7 +84,7 @@ private extension RestaurantCell {
     func setupViewModel(_ viewModel: RestaurantViewModel) {
         restaurantTitleLabel.attributedText = viewModel.title
         openingStateLabel.attributedText = viewModel.openingState
-        sortValueLabel.attributedText = viewModel.sortValue
+        sortingValueLabel.attributedText = viewModel.sortingValue
         favouriteButtonTitle = viewModel.favoriteTitle
     }
 }

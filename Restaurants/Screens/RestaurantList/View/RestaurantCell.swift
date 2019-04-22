@@ -11,7 +11,7 @@ import UIKit
 final class RestaurantCell: UITableViewCell {
     @IBOutlet private(set) weak var restaurantTitleLabel: UILabel!
     @IBOutlet private(set) weak var openingStateLabel: UILabel!
-    @IBOutlet private(set) weak var sortValueLabel: UILabel!
+    @IBOutlet private(set) weak var sortingValueLabel: UILabel!
     @IBOutlet private weak var favouriteButton: UIButton!
 
     var favouriteButtonTitle: String? {

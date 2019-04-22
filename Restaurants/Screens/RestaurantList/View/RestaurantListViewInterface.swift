@@ -9,5 +9,6 @@
 import Foundation
 
 protocol RestaurantListViewInterface: AnyObject {
-    func show(sections: [RestaurantListSection])
+    func showSortingValues(_ sortingValues: [SortingValue], withSelectedIndex index: Int)
+    func showSections(_ sections: [RestaurantListSection])
 }

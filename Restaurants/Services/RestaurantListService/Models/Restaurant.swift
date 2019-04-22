@@ -16,14 +16,14 @@ struct Restaurant: Decodable, Identifiable {
     }
 
     struct SortingValues: Decodable {
-        let bestMatch: Float
-        let newest: Float
-        let ratingAverage: Float
-        let distance: Float
-        let popularity: Float
-        let averageProductPrice: Decimal
-        let deliveryCosts: Decimal
-        let minCost: Decimal
+        let bestMatch: Double
+        let newest: Double
+        let ratingAverage: Double
+        let distance: Double
+        let popularity: Double
+        let averageProductPrice: Double
+        let deliveryCosts: Double
+        let minCost: Double
     }
 
     let name: String

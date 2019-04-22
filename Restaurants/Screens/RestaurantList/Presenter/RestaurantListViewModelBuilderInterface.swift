@@ -9,5 +9,9 @@
 import Foundation
 
 protocol RestaurantListViewModelBuilderInterface {
-    func viewModels(from restaurants: [Restaurant], filteredByName searchTerm: String?) -> [RestaurantListSection]
+    func viewModels(
+        from restaurants: [Restaurant],
+        sortedBy sortingValue: SortingValue,
+        filteredByName searchTerm: String?
+    ) -> [RestaurantListSection]
 }

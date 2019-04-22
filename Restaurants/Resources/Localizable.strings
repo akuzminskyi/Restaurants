@@ -7,3 +7,12 @@
 "OpeningsState_Closed" = "Closed";
 "OpeningsState_Open" = "Open";
 "OpeningsState_OrderAhead" = "Order ahead";
+
+"SortingValue_BestMatch" = "Best Match";
+"SortingValue_Newest" = "Newest";
+"SortingValue_AverageRating" = "Average Rating";
+"SortingValue_Distance" = "Distance";
+"SortingValue_Popularity" = "Popularity";
+"SortingValue_AveragePrice" = "Average Price";
+"SortingValue_DeliveryCosts" = "Delivery Costs";
+"SortingValue_MinimumCost" = "Minimum Cost";

@@ -11,7 +11,7 @@ import UIKit
 struct RestaurantViewModel {
     let title: NSAttributedString
     let openingState: NSAttributedString
-    let sortValue: NSAttributedString
+    let sortingValue: NSAttributedString
     let favoriteTitle: String
     let id: Identifier<Restaurant>
 }

@@ -18,8 +18,15 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <searchBar contentMode="redraw" translatesAutoresizingMaskIntoConstraints="NO" id="iyg-Fy-ql5">
+                                <rect key="frame" x="0.0" y="44" width="414" height="56"/>
+                                <textInputTraits key="textInputTraits"/>
+                                <connections>
+                                    <outlet property="delegate" destination="dma-wx-cIO" id="HyM-4s-97o"/>
+                                </connections>
+                            </searchBar>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" allowsSelection="NO" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="l1G-EX-oh0">
-                                <rect key="frame" x="0.0" y="100" width="414" height="762"/>
+                                <rect key="frame" x="0.0" y="100" width="414" height="718"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <inset key="separatorInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 <prototypes>
@@ -79,7 +86,7 @@
                                             <outlet property="favouriteButton" destination="Vyf-xq-VXO" id="R8U-zr-YKW"/>
                                             <outlet property="openingStateLabel" destination="Jc5-8g-5cL" id="hfJ-2O-Iv7"/>
                                             <outlet property="restaurantTitleLabel" destination="gCH-QP-Nvn" id="Pcq-iU-Dd6"/>
-                                            <outlet property="sortValueLabel" destination="aXU-Se-uXE" id="g6t-XB-Otc"/>
+                                            <outlet property="sortingValueLabel" destination="aXU-Se-uXE" id="gde-7c-c0P"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
@@ -87,27 +94,55 @@
                                     <outlet property="dataSource" destination="dma-wx-cIO" id="8z6-XB-nLj"/>
                                 </connections>
                             </tableView>
-                            <searchBar contentMode="redraw" translatesAutoresizingMaskIntoConstraints="NO" id="iyg-Fy-ql5">
-                                <rect key="frame" x="0.0" y="44" width="414" height="56"/>
-                                <textInputTraits key="textInputTraits"/>
-                                <connections>
-                                    <outlet property="delegate" destination="dma-wx-cIO" id="HyM-4s-97o"/>
-                                </connections>
-                            </searchBar>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" bounces="NO" showsVerticalScrollIndicator="NO" bouncesZoom="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SXf-sE-xid">
+                                <rect key="frame" x="0.0" y="818" width="414" height="44"/>
+                                <subviews>
+                                    <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zyu-dN-Q3e">
+                                        <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
+                                        <items/>
+                                    </toolbar>
+                                    <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" apportionsSegmentWidthsByContent="YES" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="ILv-Mp-veZ">
+                                        <rect key="frame" x="16" y="8" width="382" height="29"/>
+                                        <segments>
+                                            <segment title=""/>
+                                            <segment title=""/>
+                                        </segments>
+                                        <connections>
+                                            <action selector="segmentControlValuedChanged:" destination="dma-wx-cIO" eventType="valueChanged" id="R1Z-82-dMj"/>
+                                        </connections>
+                                    </segmentedControl>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstAttribute="bottom" secondItem="zyu-dN-Q3e" secondAttribute="bottom" id="AHe-36-IU9"/>
+                                    <constraint firstAttribute="trailing" secondItem="zyu-dN-Q3e" secondAttribute="trailing" id="Biv-0t-Ep3"/>
+                                    <constraint firstItem="zyu-dN-Q3e" firstAttribute="leading" secondItem="SXf-sE-xid" secondAttribute="leading" id="F4I-dq-rPb"/>
+                                    <constraint firstAttribute="trailing" secondItem="ILv-Mp-veZ" secondAttribute="trailing" constant="16" id="Vji-0Y-lod"/>
+                                    <constraint firstItem="ILv-Mp-veZ" firstAttribute="top" secondItem="SXf-sE-xid" secondAttribute="top" constant="8" id="XXG-r5-c4H"/>
+                                    <constraint firstAttribute="bottom" secondItem="ILv-Mp-veZ" secondAttribute="bottom" constant="8" id="bPt-19-kEp"/>
+                                    <constraint firstItem="ILv-Mp-veZ" firstAttribute="leading" secondItem="SXf-sE-xid" secondAttribute="leading" constant="16" id="ds3-Vq-7Il"/>
+                                    <constraint firstItem="zyu-dN-Q3e" firstAttribute="top" secondItem="SXf-sE-xid" secondAttribute="top" id="g8j-A1-Ofl"/>
+                                    <constraint firstItem="zyu-dN-Q3e" firstAttribute="width" relation="greaterThanOrEqual" secondItem="SXf-sE-xid" secondAttribute="width" id="mDa-Cq-3xr"/>
+                                    <constraint firstAttribute="height" constant="44" id="nFY-tu-Z1J"/>
+                                </constraints>
+                            </scrollView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="l1G-EX-oh0" firstAttribute="top" secondItem="iyg-Fy-ql5" secondAttribute="bottom" id="6Sk-R9-RQ9"/>
+                            <constraint firstItem="SXf-sE-xid" firstAttribute="leading" secondItem="uNx-YE-jQt" secondAttribute="leading" id="AYa-4y-wT9"/>
+                            <constraint firstItem="uNx-YE-jQt" firstAttribute="bottom" secondItem="SXf-sE-xid" secondAttribute="bottom" id="Asn-es-rwQ"/>
                             <constraint firstItem="iyg-Fy-ql5" firstAttribute="leading" secondItem="uNx-YE-jQt" secondAttribute="leading" id="Glo-R5-Hwl"/>
-                            <constraint firstItem="uNx-YE-jQt" firstAttribute="bottom" secondItem="l1G-EX-oh0" secondAttribute="bottom" id="HMG-Ya-5uV"/>
+                            <constraint firstItem="SXf-sE-xid" firstAttribute="top" secondItem="l1G-EX-oh0" secondAttribute="bottom" id="N0G-aP-IaF"/>
                             <constraint firstItem="l1G-EX-oh0" firstAttribute="leading" secondItem="uNx-YE-jQt" secondAttribute="leading" id="PDy-bq-5Um"/>
                             <constraint firstItem="iyg-Fy-ql5" firstAttribute="top" secondItem="uNx-YE-jQt" secondAttribute="top" id="cgw-jw-iYF"/>
+                            <constraint firstItem="SXf-sE-xid" firstAttribute="trailing" secondItem="uNx-YE-jQt" secondAttribute="trailing" id="eOO-Ir-7oS"/>
                             <constraint firstItem="uNx-YE-jQt" firstAttribute="trailing" secondItem="l1G-EX-oh0" secondAttribute="trailing" id="i1x-Eb-Ld0"/>
+                            <constraint firstItem="l1G-EX-oh0" firstAttribute="top" secondItem="iyg-Fy-ql5" secondAttribute="bottom" id="pF0-Kf-Ptn"/>
                             <constraint firstItem="iyg-Fy-ql5" firstAttribute="trailing" secondItem="uNx-YE-jQt" secondAttribute="trailing" id="q7a-1g-pjS"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="uNx-YE-jQt"/>
                     </view>
                     <connections>
+                        <outlet property="segmentControl" destination="ILv-Mp-veZ" id="ASq-Mh-2HR"/>
                         <outlet property="tableView" destination="l1G-EX-oh0" id="GE9-Gy-T1M"/>
                     </connections>
                 </viewController>
