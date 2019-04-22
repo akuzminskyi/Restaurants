@@ -53,6 +53,12 @@ extension RestaurantListViewController: UITableViewDataSource {
     }
 }
 
+extension RestaurantListViewController: UISearchBarDelegate {
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        presenter?.searchTermDidChange(searchText)
+    }
+}
+
 private extension RestaurantCell {
     func setupViewModel(_ viewModel: RestaurantViewModel) {
         restaurantTitleLabel.attributedText = viewModel.title

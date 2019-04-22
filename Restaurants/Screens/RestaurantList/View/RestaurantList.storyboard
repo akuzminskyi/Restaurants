@@ -19,7 +19,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" allowsSelection="NO" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="l1G-EX-oh0">
-                                <rect key="frame" x="0.0" y="44" width="414" height="818"/>
+                                <rect key="frame" x="0.0" y="100" width="414" height="762"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <inset key="separatorInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 <prototypes>
@@ -87,13 +87,23 @@
                                     <outlet property="dataSource" destination="dma-wx-cIO" id="8z6-XB-nLj"/>
                                 </connections>
                             </tableView>
+                            <searchBar contentMode="redraw" translatesAutoresizingMaskIntoConstraints="NO" id="iyg-Fy-ql5">
+                                <rect key="frame" x="0.0" y="44" width="414" height="56"/>
+                                <textInputTraits key="textInputTraits"/>
+                                <connections>
+                                    <outlet property="delegate" destination="dma-wx-cIO" id="HyM-4s-97o"/>
+                                </connections>
+                            </searchBar>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
+                            <constraint firstItem="l1G-EX-oh0" firstAttribute="top" secondItem="iyg-Fy-ql5" secondAttribute="bottom" id="6Sk-R9-RQ9"/>
+                            <constraint firstItem="iyg-Fy-ql5" firstAttribute="leading" secondItem="uNx-YE-jQt" secondAttribute="leading" id="Glo-R5-Hwl"/>
                             <constraint firstItem="uNx-YE-jQt" firstAttribute="bottom" secondItem="l1G-EX-oh0" secondAttribute="bottom" id="HMG-Ya-5uV"/>
-                            <constraint firstItem="l1G-EX-oh0" firstAttribute="top" secondItem="uNx-YE-jQt" secondAttribute="top" id="Jsb-ZO-zDF"/>
                             <constraint firstItem="l1G-EX-oh0" firstAttribute="leading" secondItem="uNx-YE-jQt" secondAttribute="leading" id="PDy-bq-5Um"/>
+                            <constraint firstItem="iyg-Fy-ql5" firstAttribute="top" secondItem="uNx-YE-jQt" secondAttribute="top" id="cgw-jw-iYF"/>
                             <constraint firstItem="uNx-YE-jQt" firstAttribute="trailing" secondItem="l1G-EX-oh0" secondAttribute="trailing" id="i1x-Eb-Ld0"/>
+                            <constraint firstItem="iyg-Fy-ql5" firstAttribute="trailing" secondItem="uNx-YE-jQt" secondAttribute="trailing" id="q7a-1g-pjS"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="uNx-YE-jQt"/>
                     </view>
@@ -103,7 +113,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="62j-Ba-IYG" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="106" y="50"/>
+            <point key="canvasLocation" x="105.79710144927537" y="49.553571428571423"/>
         </scene>
     </scenes>
 </document>

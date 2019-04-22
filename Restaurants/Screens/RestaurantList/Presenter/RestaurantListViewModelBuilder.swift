@@ -17,14 +17,25 @@ struct RestaurantListViewModelBuilder {
 
     // MARK: - private methods
 
-    private func sectionViewModel(from restaurants: [Restaurant], asLiked isLiked: Bool, withTitle title: String) -> RestaurantListSection? {
+    private func sectionViewModel(
+        from restaurants: [Restaurant],
+        asLiked isLiked: Bool,
+        withTitle title: String,
+        highlightedText: String?
+    ) -> RestaurantListSection? {
         guard !restaurants.isEmpty else {
             return nil
         }
 
-        let viewModels = restaurants.map { restaurant -> RestaurantViewModel in
+        let viewModels = restaurants.compactMap { restaurant -> RestaurantViewModel? in
+            guard let titleAttributedString = try? self.titleAttributedString(
+                title: restaurant.name,
+                highlightedText: highlightedText
+            ) else {
+                return nil
+            }
             return RestaurantViewModel(
-                title: NSAttributedString(string: restaurant.name),
+                title: titleAttributedString,
                 openingState: NSAttributedString(
                     string: restaurant.status.localized,
                     attributes: [
@@ -44,22 +55,55 @@ struct RestaurantListViewModelBuilder {
         }
         return RestaurantListSection(title: title, viewModels: viewModels)
     }
+
+    private func titleAttributedString(title: String, highlightedText: String?) throws -> NSAttributedString {
+        let attributedString = NSMutableAttributedString(string: title)
+        guard let highlightedText = highlightedText, !highlightedText.isEmpty else {
+            return (attributedString.copy() as! NSAttributedString)
+        }
+        let regex = try NSRegularExpression(pattern: highlightedText, options: .caseInsensitive)
+        let range = NSRange(location: 0, length: title.utf16.count)
+        for match in regex.matches(in: title, options: .withTransparentBounds, range: range) {
+            attributedString.addAttribute(
+                    .font,
+                value: UIFont.boldSystemFont(ofSize: 18),
+                range: match.range
+            )
+        }
+        return attributedString
+    }
 }
 
 extension RestaurantListViewModelBuilder: RestaurantListViewModelBuilderInterface {
-    func viewModels(from restaurants: [Restaurant]) -> [RestaurantListSection] {
-        let (likedRestaurants, dislikeRestaurants) = restaurants.sorted().split { restaurant -> Bool in
-            return likesService.isLiked(restaurant.id)
+    func viewModels(from restaurants: [Restaurant], filteredByName searchTerm: String?) -> [RestaurantListSection] {
+        let filteredRestaurants: [Restaurant]
+
+        if let searchTerm = searchTerm, !searchTerm.isEmpty {
+            filteredRestaurants = restaurants.filter { restaurant -> Bool in
+                return restaurant.name.localizedCaseInsensitiveContains(searchTerm)
+            }
+        } else {
+            filteredRestaurants = restaurants
         }
+
+        let (likedRestaurants, dislikeRestaurants) = filteredRestaurants
+            .sorted()
+            .split { restaurant -> Bool in
+                return likesService.isLiked(restaurant.id)
+        }
+
         return [
             sectionViewModel(
                 from: likedRestaurants,
                 asLiked: true,
-                withTitle: "RestaurantList_Section_Liked".localized()),
+                withTitle: "RestaurantList_Section_Liked".localized(),
+                highlightedText: searchTerm
+            ),
             sectionViewModel(
                 from: dislikeRestaurants,
                 asLiked: false,
-                withTitle: "RestaurantList_Section_AllRestaurants".localized()
+                withTitle: "RestaurantList_Section_AllRestaurants".localized(),
+                highlightedText: searchTerm
             )
         ].compactMap { $0 }
     }

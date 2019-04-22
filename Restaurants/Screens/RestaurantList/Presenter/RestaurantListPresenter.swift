@@ -14,6 +14,7 @@ final class RestaurantListPresenter {
     private let router: RestaurantListRouterInterface
     private let viewModelBuilder: RestaurantListViewModelBuilderInterface
     private var receivedRestaurants: [Restaurant]?
+    private var searchTerm: String?
 
     init(
         view: RestaurantListViewInterface,
@@ -29,30 +30,39 @@ final class RestaurantListPresenter {
 
     // MARK: - private methods
 
-    private func present(restaurants: [Restaurant]?) {
-        let sections = viewModelBuilder.viewModels(from: restaurants ?? [])
+    private func presentRestaurants(_ restaurants: [Restaurant], filteredByName filteredName: String?) {
+        let sections = viewModelBuilder.viewModels(from: restaurants, filteredByName: filteredName)
         view?.show(sections: sections)
+    }
+
+    private func presentActualRestaurantList() {
+        presentRestaurants(receivedRestaurants ?? [], filteredByName: searchTerm)
     }
 }
 
 extension RestaurantListPresenter: RestaurantListPresenterInterface {
+    func onViewDidLoad() {
+        interactor.fetchRestaurants()
+    }
+
     func didTap(at viewModel: RestaurantViewModel) {
         interactor.toggleLike(for: viewModel.id)
-        present(restaurants: receivedRestaurants)
+        presentActualRestaurantList()
+    }
+
+    func searchTermDidChange(_ text: String) {
+        searchTerm = text
+        presentActualRestaurantList()
     }
 
     func successfullyFetched(restaurants: [Restaurant]) {
         receivedRestaurants = restaurants
-        present(restaurants: receivedRestaurants)
+        presentActualRestaurantList()
     }
 
     func failureFetchedRestaurants(with error: Error) {
         receivedRestaurants = nil
-        present(restaurants: receivedRestaurants)
+        presentActualRestaurantList()
         router.routeToErrorScreen(withMessage: error.localizedDescription)
-    }
-
-    func onViewDidLoad() {
-        interactor.fetchRestaurants()
     }
 }
