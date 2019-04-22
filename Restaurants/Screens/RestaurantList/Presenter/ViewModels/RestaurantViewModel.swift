@@ -8,7 +8,7 @@
 
 import UIKit
 
-struct RestaurantViewModel {
+struct RestaurantViewModel: Equatable {
     let title: NSAttributedString
     let openingState: NSAttributedString
     let sortingValue: NSAttributedString

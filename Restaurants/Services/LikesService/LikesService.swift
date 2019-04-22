@@ -18,10 +18,17 @@ final class LikesService {
 
 extension LikesService: LikesServiceInterface {
     func like(_ id: Identifier<Restaurant>) {
+        guard !isLiked(id) else {
+            return
+        }
         likesStorage.set(true, forKey: id.rawValue)
     }
 
     func dislike(_ id: Identifier<Restaurant>) {
+        guard isLiked(id) else {
+            return
+        }
+
         likesStorage.removeObject(forKey: id.rawValue)
     }
 

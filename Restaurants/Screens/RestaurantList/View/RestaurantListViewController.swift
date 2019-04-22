@@ -10,11 +10,10 @@ import UIKit
 
 final class RestaurantListViewController: UIViewController {
     @IBOutlet private weak var tableView: UITableView!
-    var presenter: RestaurantListPresenterInterface?
+    @IBOutlet private weak var segmentControl: UISegmentedControl!
     private var sections = [RestaurantListSection]()
     private var sortingValues = [SortingValue]()
-
-    @IBOutlet private weak var segmentControl: UISegmentedControl!
+    var presenter: RestaurantListPresenterInterface?
 
     // MARK: - life cycle methods
 

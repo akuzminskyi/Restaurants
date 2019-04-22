@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct RestaurantListSection {
+struct RestaurantListSection: Equatable {
     let title: String
     let viewModels: [RestaurantViewModel]
 }
